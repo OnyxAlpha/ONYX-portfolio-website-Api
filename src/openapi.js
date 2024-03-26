@@ -1,42 +1,49 @@
-import { handleRequests, init, handleResponses } from "express-oas-generator";
-import mongoose from "mongoose";
 import express from "express";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
+import { handleRequests, init, handleResponses } from "express-oas-generator";
 import { router } from "./routes/allroutes.js";
+//const expressOasGenerator = require('express-oas-generator');
 
-dotenv.config()
+dotenv.config();
+
+const modelNames = mongoose.modelNames();
 
 const app = express();
 handleResponses(app, {});
 
-app.use(express.json())
+app.use(express.json());
+app.use(cors());
 
-
-init(
+handleResponses(app);
+app.listen(8080, () => {
+  init(
     app,
-    function(spec) { return spec; },
-    '/swagger.json',
+    (spec) => {
+      spec.info = {
+        title: "Onyx Portfolio API Documentation",
+        description: "API Documentation for Onyx Portfolio website",
+      };
+      spec.host = "localhost:7000";
+      spec.schemes = ["http", "https"];
+
+      return spec;
+    },
+    "./swagger.json",
     60 * 1000,
-    'api-docs',
+    "api-docs",
     modelNames,
-    ['users'],
-    ['production'],
-    true,
-  )
+    ["users"],
+    ["development"],
+    true
+  );
 
-
-  app.use(router)
-  handleRequests();
-
-
-  
-const PORT = process.env.PORT ||7000
-const modelNames = mongoose.modelNames();
-
-
-app.listen(PORT, () => {
-    console.log(`onyx portfolio api is running${PORT}`);
-    
+  console.log(
+    `Server Listening on  8080, Open http://localhost:8080/api-docs/`
+  );
 });
 
+app.use(router);
 
+handleRequests();
