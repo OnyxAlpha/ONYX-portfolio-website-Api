@@ -20,7 +20,8 @@
     "express-oas-generator": "^1.0.46",
     "mongodb": "^6.5.0",
     "mongoose": "^6.4.6",
-    "mongoose-to-swagger": "^1.5.1"
+    "mongoose-to-swagger": "^1.5.1",
+    "multer-savefilesorg-storage": "^1.0.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
