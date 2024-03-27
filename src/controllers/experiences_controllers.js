@@ -35,7 +35,7 @@ export const getOneExperience = async (req, res)=>{
 
 export const editExperience = async (req, res)=>{
         try {
-            const editExperience = await experienceModel.findById(req.params.id)
+            const editExperience = await experienceModel.findByIdAndUpdate(req.params.id)
              res.json( editExperience)
         } catch (error) {
             console.log(error) 
@@ -45,7 +45,7 @@ export const editExperience = async (req, res)=>{
 export const deleteExperience = async (req, res)=>{
         try {
             const id = req.body._id
-            const deleteExperience = await experienceModel.deleteOne({ _id: id})
+            const deleteExperience = await experienceModel.findByIdAndDelete({ _id: id})
              res.json( deleteExperience)
         } catch (error) {
             console.log(error)

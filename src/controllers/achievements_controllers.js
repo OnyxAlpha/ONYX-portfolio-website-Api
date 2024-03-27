@@ -37,7 +37,7 @@ export const getOneAchievements = async (req, res)=>{
 export const editAchievement = async (req, res)=>{
 
         try {
-             const editAchievement = await achievementModel.findById(req.params.id)
+             const editAchievement = await achievementModel.findByIdAndUpdate(req.params._id)
              res.json(editAchievement)
         } catch (error) {
             console.log(error) 
@@ -49,7 +49,7 @@ export const deleteOneAchievement = async (req, res)=>{
 
         try {
             const id = req.body._id
-             const deleteOneAchievement = await achievementModel.deleteOne({ _id: id})
+             const deleteOneAchievement = await achievementModel.findByIdAndDelete({ _id: id})
              res.json(deleteOneAchievement)
         } catch (error) {
             console.log(error)

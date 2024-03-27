@@ -36,7 +36,7 @@ export const getOneBlog = async (req, res)=>{
 export const upgradeBlog = async (req, res)=>{
 
          try {
-            const upgradeBlog = await blogsModel.findById(req.params.id)
+            const upgradeBlog = await blogsModel.findByIdAndUpdate(req.params.id)
             res.json( upgradeBlog)
          } catch (error) {
             console.log(error)
@@ -48,7 +48,7 @@ export const deleteOneBlog = async (req, res)=>{
 
         try {
             const id = req.body._id
-             const deleteOneBlog = await blogsModel.deleteOne({ _id: id})
+             const deleteOneBlog = await blogsModel.findByIdAndDelete({ _id: id})
              res.json( deleteOneBlog)
         } catch (error) {
             console.log(error)
