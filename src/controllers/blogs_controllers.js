@@ -4,8 +4,12 @@ export const addBlogs = async (req, res)=>{
       
     try {
         const data = req.body
-        const addBlogs = await blogsModel.create(data)
-        res.send(addBlogs)
+        const addBlogs = await blogsModel.create({
+            ...req.body,
+            image: req.file.filename
+        })
+        res.status(201).json(addBlogs);
+
     } catch (error) {
         console.log(error)  
     }
