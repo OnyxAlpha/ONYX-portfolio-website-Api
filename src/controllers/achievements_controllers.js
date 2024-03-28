@@ -45,7 +45,7 @@ export const getOneAchievements = async (req, res)=>{
 export const editAchievement = async (req, res)=>{
 
         try {
-             const editAchievement = await achievementModel.findByIdAndUpdate(req.params._id)
+             const editAchievement = await achievementModel.findByIdAndUpdate(req.params._id, req.body)
              res.json(editAchievement)
         } catch (error) {
             console.log(error) 

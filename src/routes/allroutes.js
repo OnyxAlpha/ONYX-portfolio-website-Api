@@ -42,7 +42,7 @@ router.get("/blog/:id", getOneBlog);
 router.delete("/blog/:id", deleteOneBlog);
 router.patch("/blog/:id", upgradeBlog);
 
-router.post("/administratorachievements", addAchievements);
+router.post("/administratorachievements", upload.single('image'),addAchievements);
 router.get("/administratorachievements", getAllAchievements);
 router.get("/administratorachievements/:id", getOneAchievements);
 router.delete("/administratorachievements/:id", deleteOneAchievement);

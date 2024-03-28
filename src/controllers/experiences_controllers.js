@@ -28,7 +28,7 @@ export const getAllExperiences = async (req, res)=>{
 export const getOneExperience = async (req, res)=>{
 
          
-            const getOneExperience = await experienceModel.findById(req.params.id)
+            const getOneExperience = await experienceModel.findById(req.params.id, req.body)
            //return 404 if experience not found
       if (getOneExperience === null) {
         return res.status(404).json({
