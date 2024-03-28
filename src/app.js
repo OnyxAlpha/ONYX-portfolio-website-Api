@@ -10,7 +10,6 @@ const app = express();
 
 const modelNames = mongoose.modelNames();
 
-//comment
 handleResponses(app, {});
 
 app.use(express.json());
