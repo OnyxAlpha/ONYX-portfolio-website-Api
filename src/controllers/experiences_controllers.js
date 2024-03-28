@@ -4,8 +4,11 @@ export const addExperience = async (req, res)=>{
       
     try {
         const data = req.body
-        const addExperience = await experienceModel.create(data)
-        res.send(addExperience)
+        const addExperience = await experienceModel.create({
+            ...req.body,
+            image: req.file.filename
+        })
+        res.status(201).json(addExperience);
     } catch (error) {
         console.log(error)
     }
@@ -24,12 +27,16 @@ export const getAllExperiences = async (req, res)=>{
 
 export const getOneExperience = async (req, res)=>{
 
-         try {
+         
             const getOneExperience = await experienceModel.findById(req.params.id)
-            res.json( getOneExperience)
-         } catch (error) {
-            console.log(error)
-         }
+           //return 404 if experience not found
+      if (getOneExperience === null) {
+        return res.status(404).json({
+         message: `Experience with objectId: ${req.params.id} Not found!`,
+       });
+     }
+     
+     res.json(getOneExperience);
 }
 
 

@@ -4,8 +4,11 @@ export const addAchievements = async (req, res)=>{
       
     try {
         const data = req.body
-        const addAchievements = await achievementModel.create(data)
-        res.send(addAchievements)
+        const addAchievements = await achievementModel.create({
+            ...req.body,
+            image: req.file.filename
+        })
+        res.status(201).json(addAchievements);
     } catch (error) {
         console.log(error)
     }
@@ -25,12 +28,17 @@ export const getAllAchievements = async (req, res)=>{
 
 export const getOneAchievements = async (req, res)=>{
 
-        try {
+    
              const getOneAchievements = await achievementModel.findById(req.params.id)
-             res.json({Achievements: getOneAchievements})
-        } catch (error) {
-            console.log(error)
-        }
+        //return 404 if achievement not found
+      if (getOneAchievements === null) {
+        return res.status(404).json({
+         message: `Achievement with objectId: ${req.params.id} Not found!`,
+       });
+     }
+     
+     res.json(getOneAchievements);
+   
 }
 
 

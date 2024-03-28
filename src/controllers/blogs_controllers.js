@@ -1,6 +1,6 @@
 import { blogsModel } from "../model/blogs.js"
 
-export const addBlogs = async (req, res)=>{
+export const addBlogs = async (req, res,next)=>{
       
     try {
         const data = req.body
@@ -11,7 +11,7 @@ export const addBlogs = async (req, res)=>{
         res.status(201).json(addBlogs);
 
     } catch (error) {
-        console.log(error)  
+        next(error); 
     }
 }
 
@@ -20,7 +20,7 @@ export const getAllBlogs = async (req, res)=>{
 
         try {
              const getAllBlogs = await blogsModel.find({})
-             res.json({blogs: getAllBlogs})
+             res.status(201).json({blogs: getAllBlogs})
         } catch (error) {
             console.log(error)
         }
@@ -28,13 +28,17 @@ export const getAllBlogs = async (req, res)=>{
 
 export const getOneBlog = async (req, res)=>{
 
-        try {
-             
-             const getOneBlog = await blogsModel.findById(req.params.id)
-             res.json( getOneBlog)
-        } catch (error) {
-            console.log(error)
-        }
+             const getOneBlog = await blogsModel.findById(req.params.id);
+            //return 404 if blog not found
+      if (getOneBlog === null) {
+     return res.status(404).json({
+      message: `Blog with objectId: ${req.params.id} Not found!`,
+    });
+  }
+  
+  res.json(getOneBlog);
+
+        
 }
 
 export const upgradeBlog = async (req, res)=>{
