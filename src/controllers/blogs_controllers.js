@@ -44,7 +44,7 @@ export const getOneBlog = async (req, res)=>{
 export const upgradeBlog = async (req, res)=>{
 
          try {
-            const upgradeBlog = await blogsModel.findByIdAndUpdate(req.params.id)
+            const upgradeBlog = await blogsModel.findByIdAndUpdate(req.params.id, req.body)
             res.json( upgradeBlog)
          } catch (error) {
             console.log(error)
